@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/cart_item"
+        android:title="@string/menu_cart"
+        android:icon="@drawable/ic_launcher_foreground"/>
+    <item android:id="@+id/categories_item"
+        android:title="@string/menu_categories"
+        android:icon="@drawable/ic_launcher_foreground"/>
+    <item android:id="@+id/orders_item"
+        android:title="@string/menu_orders"
+        android:icon="@drawable/ic_launcher_foreground"/>
+</menu>
