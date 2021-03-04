@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.momlok.aleshop.BaseFragment
 import com.momlok.aleshop.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private  var _binding: FragmentHomeBinding? =null
     private val binding get() = _binding!!

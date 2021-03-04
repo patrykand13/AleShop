@@ -7,16 +7,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.momlok.aleshop.R
 import com.momlok.aleshop.data.Items
 
 class ShearAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter<ShearAdapter.ShearViewHolder>() {
 
-    private val itemsList = ArrayList<Items>()
+     val itemsList = ArrayList<Items>()
 
     fun setItems(list: List<Items>){
         itemsList.clear()
         itemsList.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun removeCartItem(items: Items, position: Int){
+        itemsList.remove(items)
+        notifyItemRemoved(position)
+    }
+    fun removeCart(){
+        itemsList.clear()
         notifyDataSetChanged()
     }
 
@@ -42,6 +52,9 @@ class ShearAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
 
         name.text = itemsList[holder.adapterPosition].name
         categories.text = itemsList[holder.adapterPosition].categories
+        Glide.with(holder.itemView)
+                .load(itemsList[holder.adapterPosition].image)
+                .into(image)
     }
 
     override fun getItemCount(): Int {

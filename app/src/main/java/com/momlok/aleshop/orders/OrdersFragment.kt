@@ -5,10 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.momlok.aleshop.BaseFragment
 import com.momlok.aleshop.databinding.FragmentOrdersBinding
 
 
-class OrdersFragment : Fragment() {
+class OrdersFragment : BaseFragment() {
     private  var _binding: FragmentOrdersBinding? =null
     private val binding get() = _binding!!
 

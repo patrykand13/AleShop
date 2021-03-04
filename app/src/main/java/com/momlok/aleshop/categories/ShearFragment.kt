@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.api.Distribution
+import com.momlok.aleshop.BaseFragment
 import com.momlok.aleshop.R
 import com.momlok.aleshop.cart.CartViewModel
 import com.momlok.aleshop.data.Items
@@ -19,7 +20,7 @@ import com.momlok.aleshop.databinding.FragmentHomeBinding
 import com.momlok.aleshop.databinding.FragmentShearBinding
 
 
-class ShearFragment : Fragment(), OnItemsLongClick {
+class ShearFragment : BaseFragment(), OnItemsLongClick {
 
     private  var _binding: FragmentShearBinding? =null
     private val binding get() = _binding!!

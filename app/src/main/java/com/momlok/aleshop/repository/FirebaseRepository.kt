@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.momlok.aleshop.data.Items
+import com.momlok.aleshop.data.Order
 import com.momlok.aleshop.data.User
 
 class FirebaseRepository {
@@ -17,6 +18,17 @@ class FirebaseRepository {
     private val auth = FirebaseAuth.getInstance()
     private val cloud = FirebaseFirestore.getInstance()
 
+
+    fun createNewUser(user: User){
+        cloud.collection("users")
+                .document(user.uid!!)
+                .set(user)
+    }
+    fun createNewOrder(order: Order){
+        cloud.collection("orders")
+                .document(order.id!!)
+                .set(order)
+    }
     fun getUserData(): LiveData<User>{
         val cloudResult = MutableLiveData<User>()
         val uid = auth.currentUser?.uid
@@ -74,5 +86,38 @@ class FirebaseRepository {
         }
         return cloudResult
 
+    }
+    fun removeItemsFromCart(items: Items){
+        cloud.collection("users")
+                .document(auth.currentUser?.uid!!)
+                .update("cart",FieldValue.arrayRemove(items.id))
+                .addOnSuccessListener {
+                    Log.d("repository","remove item from cart")
+                }
+                .addOnFailureListener {
+                    Log.d("repository fail","faild remove item from cart")
+                }
+    }
+    fun updateOrder(items: Items, order: Order){
+        cloud.collection("orders")
+                .document(order.id!!)
+                .update("cart",FieldValue.arrayUnion(items.id))
+                .addOnSuccessListener {
+                    Log.d("repository","update order")
+                }
+                .addOnFailureListener {
+                    Log.d("repository fail","faild update order")
+                }
+    }
+    fun removeCart(){
+        cloud.collection("users")
+                .document(auth.currentUser?.uid!!)
+                .update("cart",FieldValue.delete())
+                .addOnSuccessListener {
+                    Log.d("repository","remove cart")
+                }
+                .addOnFailureListener {
+                    Log.d("repository fail","faild remove cart")
+                }
     }
 }
