@@ -1,13 +1,12 @@
 package com.momlok.aleshop.categories
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
-import com.momlok.aleshop.BaseFragment
+import com.momlok.aleshop.activites.BaseFragment
 import com.momlok.aleshop.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment() {
@@ -24,6 +23,10 @@ class HomeFragment : BaseFragment() {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
         binding.chairHomeBT.setOnClickListener {
             var action = HomeFragmentDirections.actionHomeFragmentToShearFragment("chair")
+            Navigation.findNavController(binding.root).navigate(action)
+        }
+        binding.sofaHomeBT.setOnClickListener {
+            var action = HomeFragmentDirections.actionHomeFragmentToShearFragment("sofa")
             Navigation.findNavController(binding.root).navigate(action)
         }
         binding.logoutBT.setOnClickListener {

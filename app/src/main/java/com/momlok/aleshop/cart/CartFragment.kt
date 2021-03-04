@@ -2,16 +2,15 @@ package com.momlok.aleshop.cart
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.momlok.aleshop.BaseFragment
+import com.momlok.aleshop.activites.BaseFragment
+import com.momlok.aleshop.categories.ItemsAdapter
 import com.momlok.aleshop.categories.OnItemsLongClick
-import com.momlok.aleshop.categories.ShearAdapter
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.data.Order
 import com.momlok.aleshop.data.User
@@ -23,7 +22,7 @@ class CartFragment : BaseFragment(), OnItemsLongClick {
     private  var _binding: FragmentCartBinding? =null
     private val binding get() = _binding!!
     private val cartVM by viewModels<CartViewModel>()
-    private val adapter = ShearAdapter(this)
+    private val adapter = ItemsAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,13 +57,10 @@ class CartFragment : BaseFragment(), OnItemsLongClick {
                         cartVM.user.value?.uid,
                         listOf())
                 cartVM.createOrder(order)
-
-                var co = itemsList.get(0)
                 for (i in 0 until itemsList.size){
-                    co =itemsList.get(i)
-                    cartVM.updateOrder(co,order)
+                    var simpleItem =itemsList.get(i)
+                    cartVM.updateOrder(simpleItem,order)
                 }
-
                 cartVM.removeCart()
                 adapter.removeCart()
             }catch (e: Exception){ Snackbar.make(requireView(),"Przepraszamy, sprobuj ponownie", Snackbar.LENGTH_SHORT).show()}
@@ -74,20 +70,12 @@ class CartFragment : BaseFragment(), OnItemsLongClick {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        cartVM.user.observe(viewLifecycleOwner, {user ->
-            bindUserData(user)
-        })
-
         cartVM.cart.observe(viewLifecycleOwner,{list ->
             list?.let{
                 adapter.setItems(it)
             }
 
         })
-    }
-
-    private fun bindUserData(user: User) {
-        Log.d("info", user.toString())
     }
 
     override fun onItemsLongClick(items: Items, position: Int) {

@@ -1,8 +1,6 @@
 package com.momlok.aleshop.categories
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.google.api.Distribution
-import com.momlok.aleshop.BaseFragment
-import com.momlok.aleshop.R
-import com.momlok.aleshop.cart.CartViewModel
+import com.momlok.aleshop.activites.BaseFragment
 import com.momlok.aleshop.data.Items
-import com.momlok.aleshop.data.User
-import com.momlok.aleshop.databinding.FragmentHomeBinding
 import com.momlok.aleshop.databinding.FragmentShearBinding
+
 
 
 class ShearFragment : BaseFragment(), OnItemsLongClick {
@@ -26,7 +20,8 @@ class ShearFragment : BaseFragment(), OnItemsLongClick {
     private val binding get() = _binding!!
     val args: ShearFragmentArgs by navArgs()
     private val shearVM by viewModels<ShearViewModel>()
-    private val adapter = ShearAdapter(this)
+    private val adapter = ItemsAdapter(this)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +47,7 @@ class ShearFragment : BaseFragment(), OnItemsLongClick {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        shearVM.items.observe(viewLifecycleOwner, {list ->
+        shearVM.getItemsData(args.type).observe(viewLifecycleOwner, {list ->
             adapter.setItems(list)
         })
     }

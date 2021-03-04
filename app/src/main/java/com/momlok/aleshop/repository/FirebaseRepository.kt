@@ -45,10 +45,11 @@ class FirebaseRepository {
             }
         return cloudResult
     }
-    fun getItemsData(): LiveData<List<Items>>{
+    fun getItemsData(categories: String): LiveData<List<Items>>{
         val cloudResult = MutableLiveData<List<Items>>()
 
         cloud.collection("items")
+                .whereEqualTo("categories", categories)
             .get()
             .addOnSuccessListener {
                 val items = it.toObjects(Items::class.java)
@@ -57,6 +58,21 @@ class FirebaseRepository {
             .addOnFailureListener {
                 Log.d("error","get items faild")
             }
+        return cloudResult
+    }
+    fun getOrdersData(user: String?): LiveData<List<Order>>{
+        val cloudResult = MutableLiveData<List<Order>>()
+
+        cloud.collection("orders")
+                .whereEqualTo("userID",user)
+                .get()
+                .addOnSuccessListener {
+                    val order = it.toObjects(Order::class.java)
+                    cloudResult.postValue(order)
+                }
+                .addOnFailureListener {
+                    Log.d("error","get items faild")
+                }
         return cloudResult
     }
     fun addItemsToCart(items: Items){
