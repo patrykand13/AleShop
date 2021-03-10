@@ -46,11 +46,11 @@ class ItemsAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
         val name = holder.itemView.findViewById<TextView>(R.id.nameItemsRowTV)
-        val categories = holder.itemView.findViewById<TextView>(R.id.categoriesItemsRowTV)
+        val price = holder.itemView.findViewById<TextView>(R.id.priceItemsRowTV)
         val image = holder.itemView.findViewById<ImageView>(R.id.itemsRowImage)
 
         name.text = itemsList[holder.adapterPosition].name
-        categories.text = itemsList[holder.adapterPosition].categories
+        price.text = itemsList[holder.adapterPosition].price.toString()
         Glide.with(holder.itemView)
                 .load(itemsList[holder.adapterPosition].image)
                 .into(image)

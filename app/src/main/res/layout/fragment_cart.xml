@@ -8,9 +8,10 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/toPayCartTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:hint="Do zapłaty: " />
 
     <Button
         android:id="@+id/createOrderCartBT"

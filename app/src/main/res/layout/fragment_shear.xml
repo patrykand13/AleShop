@@ -8,8 +8,9 @@
     <TextView
         android:id="@+id/textor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="80dp"
+        android:hint="categories"
+        android:background="#346A36"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewShear"

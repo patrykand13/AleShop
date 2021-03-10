@@ -9,7 +9,6 @@ class ShearViewModel: ViewModel() {
 
     private val repository = FirebaseRepository()
 
-    //val items = repository.getItemsData()
     fun getItemsData(categories: String): LiveData<List<Items>> {
         val items = repository.getItemsData(categories)
         return items

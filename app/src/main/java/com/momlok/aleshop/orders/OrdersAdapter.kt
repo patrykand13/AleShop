@@ -3,14 +3,12 @@ package com.momlok.aleshop.orders
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.momlok.aleshop.R
 import com.momlok.aleshop.data.Order
 
-class OrdersAdapter(): RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
+class OrdersAdapter: RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
 
     private val orderList = ArrayList<Order>()
 
@@ -30,10 +28,10 @@ class OrdersAdapter(): RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
 
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         val status = holder.itemView.findViewById<TextView>(R.id.statusOrdersRowTV)
-        val items = holder.itemView.findViewById<TextView>(R.id.itemsOrdersRowTV)
+        val number = holder.itemView.findViewById<TextView>(R.id.numberOrdersRowTV)
 
         status.text = orderList[holder.adapterPosition].status
-        //items.text = orderList[holder.adapterPosition].cart.toString()
+        number.text = orderList[holder.adapterPosition].id
     }
 
     override fun getItemCount(): Int {

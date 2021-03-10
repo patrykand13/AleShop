@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.momlok.aleshop.R
 import com.momlok.aleshop.activites.BaseFragment
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.databinding.FragmentShearBinding
@@ -41,7 +45,7 @@ class ShearFragment : BaseFragment(), OnItemsLongClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerViewShear.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewShear.layoutManager = GridLayoutManager(requireContext(),2)
         binding.recyclerViewShear.adapter = adapter
     }
 

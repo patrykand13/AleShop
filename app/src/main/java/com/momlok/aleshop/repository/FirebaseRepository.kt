@@ -8,13 +8,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.momlok.aleshop.data.Categories
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.data.Order
 import com.momlok.aleshop.data.User
 
 class FirebaseRepository {
 
-    private val storage = FirebaseStorage.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val cloud = FirebaseFirestore.getInstance()
 
@@ -41,7 +41,7 @@ class FirebaseRepository {
                 cloudResult.postValue(user)
             }
             .addOnFailureListener {
-                Log.d("error","get user faild")
+                Log.d("repository failed","get user failed")
             }
         return cloudResult
     }
@@ -56,7 +56,7 @@ class FirebaseRepository {
                 cloudResult.postValue(items)
             }
             .addOnFailureListener {
-                Log.d("error","get items faild")
+                Log.d("repository failed","get items failed")
             }
         return cloudResult
     }
@@ -71,7 +71,21 @@ class FirebaseRepository {
                     cloudResult.postValue(order)
                 }
                 .addOnFailureListener {
-                    Log.d("error","get items faild")
+                    Log.d("repository failed","get orders failed")
+                }
+        return cloudResult
+    }
+    fun getHomeData(): MutableLiveData<List<Categories>> {
+        val cloudResult = MutableLiveData<List<Categories>>()
+
+        cloud.collection("categories")
+                .get()
+                .addOnSuccessListener {
+                    val categories = it.toObjects(Categories::class.java)
+                    cloudResult.postValue(categories)
+                }
+                .addOnFailureListener {
+                    Log.d("repository failed","get items failed")
                 }
         return cloudResult
     }
@@ -83,7 +97,7 @@ class FirebaseRepository {
                     Log.d("repository","add to cart")
                 }
                 .addOnFailureListener {
-                    Log.d("repository fail","faild add to cart")
+                    Log.d("repository failed","failed add to cart")
                 }
     }
     fun getItemsCart(list: List<String>?): LiveData<List<Items>>{
@@ -97,7 +111,7 @@ class FirebaseRepository {
                         cloudResult.postValue(resultList)
                     }
                     .addOnFailureListener {
-                        Log.d("repository fail","faild get to cart")
+                        Log.d("repository failed","failed get to cart")
                     }
         }
         return cloudResult
@@ -111,7 +125,7 @@ class FirebaseRepository {
                     Log.d("repository","remove item from cart")
                 }
                 .addOnFailureListener {
-                    Log.d("repository fail","faild remove item from cart")
+                    Log.d("repository failed","failed remove item from cart")
                 }
     }
     fun updateOrder(items: Items, order: Order){
@@ -122,7 +136,7 @@ class FirebaseRepository {
                     Log.d("repository","update order")
                 }
                 .addOnFailureListener {
-                    Log.d("repository fail","faild update order")
+                    Log.d("repository failed","failed update order")
                 }
     }
     fun removeCart(){
@@ -133,7 +147,7 @@ class FirebaseRepository {
                     Log.d("repository","remove cart")
                 }
                 .addOnFailureListener {
-                    Log.d("repository fail","faild remove cart")
+                    Log.d("repository failed","failed remove cart")
                 }
     }
 }
