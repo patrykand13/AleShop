@@ -29,9 +29,11 @@ class OrdersAdapter: RecyclerView.Adapter<OrdersAdapter.OrdersViewHolder>() {
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         val status = holder.itemView.findViewById<TextView>(R.id.statusOrdersRowTV)
         val number = holder.itemView.findViewById<TextView>(R.id.numberOrdersRowTV)
+        val date = holder.itemView.findViewById<TextView>(R.id.dateOrdersRowTV)
 
         status.text = orderList[holder.adapterPosition].status
         number.text = orderList[holder.adapterPosition].id
+        date.text = orderList[holder.adapterPosition].date
     }
 
     override fun getItemCount(): Int {

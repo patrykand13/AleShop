@@ -27,10 +27,34 @@
         <argument
             android:name="type"
             app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_shearFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.momlok.aleshop.orders.OrdersFragment"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.momlok.aleshop.categories.ItemFragment"
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" >
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="float" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

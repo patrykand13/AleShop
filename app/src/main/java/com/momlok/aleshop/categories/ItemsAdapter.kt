@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.momlok.aleshop.R
 import com.momlok.aleshop.data.Items
 
-class ItemsAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
+class ItemsAdapter(private val listener: OnItemsClick): RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
 
      val itemsList = ArrayList<Items>()
 
@@ -31,6 +31,10 @@ class ItemsAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
 
     inner class ItemsViewHolder(view: View) : RecyclerView.ViewHolder(view){
         init {
+            view.setOnClickListener{
+                listener.onItemsClick(itemsList[adapterPosition],adapterPosition)
+                true
+            }
             view.setOnLongClickListener{
                 listener.onItemsLongClick(itemsList[adapterPosition],adapterPosition)
                 true
@@ -60,6 +64,7 @@ class ItemsAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
         return itemsList.size
     }
 }
-interface OnItemsLongClick{
+interface OnItemsClick{
+    fun onItemsClick(items: Items, position: Int)
     fun onItemsLongClick(items: Items, position: Int)
 }

@@ -13,8 +13,4 @@ class ShearViewModel: ViewModel() {
         val items = repository.getItemsData(categories)
         return items
     }
-
-    fun addItemsToCart(items: Items){
-        repository.addItemsToCart(items)
-    }
 }

@@ -89,10 +89,10 @@ class FirebaseRepository {
                 }
         return cloudResult
     }
-    fun addItemsToCart(items: Items){
+    fun addItemsToCart(id: String, number: Int){
         cloud.collection("users")
                 .document(auth.currentUser?.uid!!)
-                .update("cart",FieldValue.arrayUnion(items.id))
+                .update("cart",FieldValue.arrayUnion(id), "numberOfItemsInCart", FieldValue.arrayUnion(number))
                 .addOnSuccessListener {
                     Log.d("repository","add to cart")
                 }

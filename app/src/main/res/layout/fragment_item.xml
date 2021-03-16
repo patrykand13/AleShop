@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".categories.ItemFragment"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/itemImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/itemNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name" />
+
+    <TextView
+        android:id="@+id/itemPriceTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="price" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/itemNumberToOrderTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Zamawiam: 1 " />
+
+        <Button
+            android:id="@+id/itemLessBT"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/itemMoreBT"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/itemAmountTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:hint="Razem: " />
+    </LinearLayout>
+    <Button
+        android:id="@+id/itemAddToCartBT"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Zamów" />
+
+    <TextView
+        android:id="@+id/itemDescriptionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description " />
+
+</LinearLayout>

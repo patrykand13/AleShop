@@ -6,7 +6,6 @@
     tools:context=".cart.CartFragment"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/toPayCartTV"
         android:layout_width="match_parent"

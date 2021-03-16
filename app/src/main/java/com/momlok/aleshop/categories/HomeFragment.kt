@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment(), OnClickListener {
     }
 
     override fun onClickListener(categories: Categories, position: Int) {
-        var action = HomeFragmentDirections.actionHomeFragmentToShearFragment(categories.name.toString())
+        var action = HomeFragmentDirections.actionHomeFragmentToShearFragment(categories.name.toString(),categories.image.toString())
         Navigation.findNavController(binding.root).navigate(action)
     }
 }

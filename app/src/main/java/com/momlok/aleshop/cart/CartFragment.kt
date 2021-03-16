@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.type.DateTime
 import com.momlok.aleshop.activites.BaseFragment
 import com.momlok.aleshop.categories.ItemsAdapter
-import com.momlok.aleshop.categories.OnItemsLongClick
+import com.momlok.aleshop.categories.OnItemsClick
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.data.Order
 import com.momlok.aleshop.data.User
@@ -23,7 +23,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 
-class CartFragment : BaseFragment(), OnItemsLongClick {
+class CartFragment : BaseFragment(), OnItemsClick {
     private  var _binding: FragmentCartBinding? =null
     private val binding get() = _binding!!
     private val cartVM by viewModels<CartViewModel>()
@@ -65,7 +65,8 @@ class CartFragment : BaseFragment(), OnItemsLongClick {
                         "realizowany",
                         cartVM.user.value?.uid,
                         date,
-                        listOf())
+                        listOf(),
+                        )
                 cartVM.createOrder(order)
                 for (i in 0 until itemsList.size){
                     var simpleItem =itemsList.get(i)
@@ -88,6 +89,8 @@ class CartFragment : BaseFragment(), OnItemsLongClick {
 
         })
     }
+
+    override fun onItemsClick(items: Items, position: Int) {}
 
     override fun onItemsLongClick(items: Items, position: Int) {
         cartVM.removeCartItem(items)
