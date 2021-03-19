@@ -1,7 +1,6 @@
 package com.momlok.aleshop.categories
 
 import androidx.lifecycle.ViewModel
-import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.repository.FirebaseRepository
 
 class ItemViewModel: ViewModel() {

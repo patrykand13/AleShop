@@ -3,11 +3,9 @@ package com.momlok.aleshop.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import com.momlok.aleshop.data.Categories
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.data.Order
@@ -85,53 +83,53 @@ class FirebaseRepository {
                     cloudResult.postValue(categories)
                 }
                 .addOnFailureListener {
-                    Log.d("repository failed","get items failed")
+                    Log.d("repository failed","get categories data failed")
                 }
         return cloudResult
-    }
-    fun addItemsToCart(id: String, number: Int){
-        cloud.collection("users")
-                .document(auth.currentUser?.uid!!)
-                .update("cart",FieldValue.arrayUnion(id), "numberOfItemsInCart", FieldValue.arrayUnion(number))
-                .addOnSuccessListener {
-                    Log.d("repository","add to cart")
-                }
-                .addOnFailureListener {
-                    Log.d("repository failed","failed add to cart")
-                }
     }
     fun getItemsCart(list: List<String>?): LiveData<List<Items>>{
         val cloudResult = MutableLiveData<List<Items>>()
-        if (!list.isNullOrEmpty()){
-            cloud.collection("items")
-                    .whereIn("id",list)
-                    .get()
-                    .addOnSuccessListener {
-                        val resultList = it.toObjects(Items::class.java)
-                        cloudResult.postValue(resultList)
-                    }
-                    .addOnFailureListener {
-                        Log.d("repository failed","failed get to cart")
-                    }
-        }
+        try {
+            if (!list.isNullOrEmpty()){
+                cloud.collection("items")
+                        .whereIn("id",list)
+                        .get()
+                        .addOnSuccessListener {
+                            val resultList = it.toObjects(Items::class.java)
+                            cloudResult.postValue(resultList)
+                        }
+                        .addOnFailureListener {
+                            Log.d("repository failed","failed get item to cart")
+                        }
+            }
+        }catch (e:Exception){}
+
         return cloudResult
 
     }
-    fun removeItemsFromCart(items: Items){
+
+    fun addItemsToCart(id: String, number: Int){
+        val updates = hashMapOf<String, Any>(
+                "cart.$id" to number
+        )
         cloud.collection("users")
                 .document(auth.currentUser?.uid!!)
-                .update("cart",FieldValue.arrayRemove(items.id))
+                .update(updates)
                 .addOnSuccessListener {
-                    Log.d("repository","remove item from cart")
+                    Log.d("repository","add item to cart")
                 }
                 .addOnFailureListener {
-                    Log.d("repository failed","failed remove item from cart")
+                    Log.d("repository failed","failed item add to cart")
                 }
     }
-    fun updateOrder(items: Items, order: Order){
+    fun updateOrder(items: Items, number: Int, order: Order){
+        var id = items.id
+        val updates = hashMapOf<String, Any>(
+                "cart.$id" to number
+        )
         cloud.collection("orders")
                 .document(order.id!!)
-                .update("cart",FieldValue.arrayUnion(items.id))
+                .update(updates)
                 .addOnSuccessListener {
                     Log.d("repository","update order")
                 }
@@ -139,15 +137,32 @@ class FirebaseRepository {
                     Log.d("repository failed","failed update order")
                 }
     }
-    fun removeCart(){
+    fun updateCart(id: String,number:Int){
+        val updates = hashMapOf<String, Any>(
+                "cart.$id" to number
+        )
         cloud.collection("users")
                 .document(auth.currentUser?.uid!!)
-                .update("cart",FieldValue.delete())
+                .update(updates)
                 .addOnSuccessListener {
-                    Log.d("repository","remove cart")
+                    Log.d("repository","update cart")
                 }
                 .addOnFailureListener {
-                    Log.d("repository failed","failed remove cart")
+                    Log.d("repository failed","failed update cart")
+                }
+    }
+    fun removeItemsFromCart(id: String){
+        val updates = hashMapOf<String, Any>(
+                "cart.$id" to FieldValue.delete()
+        )
+        cloud.collection("users")
+                .document(auth.currentUser?.uid!!)
+                .update(updates)
+                .addOnSuccessListener {
+                    Log.d("repository","remove item from cart")
+                }
+                .addOnFailureListener {
+                    Log.d("repository failed","failed remove item from cart")
                 }
     }
 }

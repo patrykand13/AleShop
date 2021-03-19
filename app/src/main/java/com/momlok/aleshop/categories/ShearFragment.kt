@@ -7,13 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
-import com.momlok.aleshop.R
 import com.momlok.aleshop.activites.BaseFragment
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.databinding.FragmentShearBinding
@@ -26,7 +21,7 @@ class ShearFragment : BaseFragment(), OnItemsClick {
     private val binding get() = _binding!!
     val args: ShearFragmentArgs by navArgs()
     private val shearVM by viewModels<ShearViewModel>()
-    private val adapter = ItemsAdapter(this)
+    private val adapter = ShearAdapter(this)
 
 
     override fun onCreateView(
@@ -63,14 +58,9 @@ class ShearFragment : BaseFragment(), OnItemsClick {
     }
 
     override fun onItemsClick(items: Items, position: Int) {
-        //Snackbar.make(requireView(),items.name.toString(), Snackbar.LENGTH_SHORT).show()
-        //shearVM.addItemsToCart(items)
         var action = ShearFragmentDirections.actionShearFragmentToItemFragment(items.image.toString(),items.name.toString(),items.price.toFloat(),items.id.toString())
         Navigation.findNavController(binding.root).navigate(action)
-
     }
-
-    override fun onItemsLongClick(items: Items, position: Int) {}
 
 
 }

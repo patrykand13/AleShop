@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.momlok.aleshop.R
-import com.momlok.aleshop.databinding.FragmentHomeBinding
 import com.momlok.aleshop.databinding.FragmentItemBinding
 
 class ItemFragment : Fragment() {
@@ -22,6 +20,7 @@ class ItemFragment : Fragment() {
     private val itemVM by viewModels<ItemViewModel>()
     var price = 0.0
     var quantity = 1
+    var filterUserPrice: String? = ""
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -46,34 +45,34 @@ class ItemFragment : Fragment() {
                 .into(binding.itemImageView)
         }
         binding.itemNameTV.text = args.name
-        binding.itemPriceTV.text = args.price.toString()
+        binding.itemPriceTV.text = "Sztuka: ${args.price.toString()} zł"
         price = args.price.toDouble()
-        var filterUserPrice: String? = "%.2f".format(price)
-        binding.itemNumberToOrderTV.text = "Ilość sztuk: $quantity"
-        binding.itemAmountTV.text = "Razem do zapłaty: $filterUserPrice"
+        setTV()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.itemAddToCartBT.setOnClickListener {
             itemVM.addItemsToCart(args.id,quantity)
+            binding.itemAddToCartBT.text = "Dodano do Koszyka"
         }
         binding.itemLessBT.setOnClickListener {
             if (quantity >1){
                 quantity--
                 price = args.price * quantity.toDouble()
-                var filterUserPrice: String? = "%.2f".format(price)
-                binding.itemNumberToOrderTV.text = "Ilość sztuk: $quantity"
-                binding.itemAmountTV.text = "Razem do zapłaty: $filterUserPrice"
+                setTV()
             }
         }
         binding.itemMoreBT.setOnClickListener {
             quantity++
             price = args.price * quantity.toDouble()
-            var filterUserPrice: String? = "%.2f".format(price)
-            binding.itemNumberToOrderTV.text = "Ilość sztuk: $quantity"
-            binding.itemAmountTV.text = "Razem do zapłaty: $filterUserPrice"
+            setTV()
         }
 
+    }
+    fun setTV(){
+        filterUserPrice = "%.2f".format(price)
+        binding.itemNumberToOrderTV.text = "Ilość sztuk: $quantity"
+        binding.itemAmountTV.text = "Razem do zapłaty: $filterUserPrice zł"
     }
 }

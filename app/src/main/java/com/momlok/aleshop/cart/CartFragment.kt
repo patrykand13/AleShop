@@ -1,33 +1,25 @@
 package com.momlok.aleshop.cart
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.google.type.DateTime
 import com.momlok.aleshop.activites.BaseFragment
-import com.momlok.aleshop.categories.ItemsAdapter
-import com.momlok.aleshop.categories.OnItemsClick
 import com.momlok.aleshop.data.Items
 import com.momlok.aleshop.data.Order
-import com.momlok.aleshop.data.User
 import com.momlok.aleshop.databinding.FragmentCartBinding
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 
-class CartFragment : BaseFragment(), OnItemsClick {
+class CartFragment : BaseFragment(), OnItemsClickCart {
     private  var _binding: FragmentCartBinding? =null
     private val binding get() = _binding!!
     private val cartVM by viewModels<CartViewModel>()
-    private val adapter = ItemsAdapter(this)
+    private val adapter = CartAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +39,7 @@ class CartFragment : BaseFragment(), OnItemsClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerViewCart.layoutManager = GridLayoutManager(requireContext(),2)
+        binding.recyclerViewCart.layoutManager = GridLayoutManager(requireContext(),1)
         binding.recyclerViewCart.adapter = adapter
 
         createOrderClick()
@@ -57,6 +49,7 @@ class CartFragment : BaseFragment(), OnItemsClick {
         binding.createOrderCartBT.setOnClickListener {
             try {
                 var itemsList = adapter.itemsList
+                var numberOfItemList = adapter.numberOfItemList
                 var numberOfOrder = Date().time.toString()
                 val sdf = SimpleDateFormat("yyyy-MM-dd")
                 var date = sdf.format(Date())
@@ -64,15 +57,14 @@ class CartFragment : BaseFragment(), OnItemsClick {
                         numberOfOrder,
                         "realizowany",
                         cartVM.user.value?.uid,
-                        date,
-                        listOf(),
-                        )
+                        date)
                 cartVM.createOrder(order)
                 for (i in 0 until itemsList.size){
                     var simpleItem =itemsList.get(i)
-                    cartVM.updateOrder(simpleItem,order)
+                    var simpleNumber = numberOfItemList.get(i)
+                    cartVM.updateOrder(simpleItem,simpleNumber.toString().toInt(),order)
+                    cartVM.removeCartItem(simpleItem.id.toString())
                 }
-                cartVM.removeCart()
                 adapter.removeCart()
                 Snackbar.make(requireView(),"Pomyslnie zlozone zamowienie o numerze: $numberOfOrder", Snackbar.LENGTH_SHORT).show()
             }catch (e: Exception){ Snackbar.make(requireView(),"Przepraszamy, sprobuj ponownie", Snackbar.LENGTH_SHORT).show()}
@@ -84,16 +76,21 @@ class CartFragment : BaseFragment(), OnItemsClick {
         super.onActivityCreated(savedInstanceState)
         cartVM.cart.observe(viewLifecycleOwner,{list ->
             list?.let{
-                adapter.setItems(it)
-            }
+                try {
+                    adapter.setList(it,cartVM.user.value!!.cart!!.values)
+                    binding.toPayCartTV.text = "Do zaplaty: %.2f zł".format(adapter.priceAll)
+                }catch (e:Exception){}
 
+            }
         })
+
     }
 
-    override fun onItemsClick(items: Items, position: Int) {}
-
-    override fun onItemsLongClick(items: Items, position: Int) {
-        cartVM.removeCartItem(items)
+    override fun onDeleteItemClickCart(items: Items, position: Int) {
+        cartVM.removeCartItem(items.id.toString())
         adapter.removeCartItem(items,position)
+    }
+    override fun onUpdateItemClickCart(items: Items, updateNumber: Int) {
+        cartVM.updateCart(items.id.toString(),updateNumber)
     }
 }

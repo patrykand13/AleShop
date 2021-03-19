@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.momlok.aleshop.activites.BaseFragment
-import com.momlok.aleshop.categories.ItemsAdapter
-import com.momlok.aleshop.categories.ShearViewModel
 import com.momlok.aleshop.databinding.FragmentOrdersBinding
 
 
@@ -43,7 +40,7 @@ class OrdersFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         ordersVM.orders.observe(viewLifecycleOwner, { list ->
-                    adapter.setItems(list)
+                   adapter.setItems(list)
                 })
     }
 }

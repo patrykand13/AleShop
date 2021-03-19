@@ -50,8 +50,7 @@ class SignUpFragment : BaseFragment() {
                             val user = User(
                                     auth.user!!.uid,
                                     auth.user!!.email,
-                                    "",
-                                    listOf())
+                                    "")
                             signUpVM.createNewUs(user)
                             goMain()
                     }

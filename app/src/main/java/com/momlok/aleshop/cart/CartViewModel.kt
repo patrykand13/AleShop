@@ -8,23 +8,21 @@ import com.momlok.aleshop.repository.FirebaseRepository
 
 class CartViewModel: ViewModel() {
     private val repository = FirebaseRepository()
-
     val user = repository.getUserData()
 
     val cart = user.switchMap {
-        repository.getItemsCart(it.cart)
+        repository.getItemsCart(it.cart!!.keys.toList())
     }
-
-    fun removeCartItem(items: Items){
+    fun removeCartItem(items: String){
         repository.removeItemsFromCart(items)
-    }
-    fun removeCart(){
-        repository.removeCart()
     }
     fun createOrder(order: Order){
         repository.createNewOrder(order)
     }
-    fun updateOrder(items: Items, order: Order){
-        repository.updateOrder(items, order)
+    fun updateOrder(items: Items, number: Int, order: Order){
+        repository.updateOrder(items, number, order)
+    }
+    fun updateCart(id: String, updateNumber: Int){
+        repository.updateCart(id,updateNumber)
     }
 }

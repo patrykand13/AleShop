@@ -41,7 +41,6 @@ class SignInFragment : BaseFragment() {
         binding.registerLoginBT.setOnClickListener {
             findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment().actionId)
         }
-
     }
 
     private fun loginClick() {

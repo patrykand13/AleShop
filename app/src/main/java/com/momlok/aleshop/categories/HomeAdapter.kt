@@ -4,12 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.momlok.aleshop.R
 import com.momlok.aleshop.data.Categories
-import com.momlok.aleshop.data.Items
 
 class HomeAdapter(private val listener: OnClickListener): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
@@ -38,7 +36,6 @@ class HomeAdapter(private val listener: OnClickListener): RecyclerView.Adapter<H
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val image = holder.itemView.findViewById<ImageView>(R.id.homeRowImage)
-        var name = homeList[holder.adapterPosition].name
         Glide.with(holder.itemView)
                 .load(homeList[holder.adapterPosition].image)
                 .into(image)

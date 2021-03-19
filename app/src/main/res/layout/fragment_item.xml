@@ -17,13 +17,16 @@
         android:id="@+id/itemNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="name" />
+        android:hint="name"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/itemPriceTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="price" />
+        android:hint="price"
+        android:textSize="16sp"/>
 
 
     <LinearLayout
@@ -62,7 +65,7 @@
         android:id="@+id/itemAddToCartBT"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Zamów" />
+        android:text="Dodaj do Koszyka" />
 
     <TextView
         android:id="@+id/itemDescriptionTV"

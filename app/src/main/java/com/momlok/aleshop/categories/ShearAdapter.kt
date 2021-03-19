@@ -1,7 +1,6 @@
 package com.momlok.aleshop.categories
 
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.momlok.aleshop.R
 import com.momlok.aleshop.data.Items
 
-class ShearAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter<ShearAdapter.ShearViewHolder>() {
+class ShearAdapter(private val listener: OnItemsClick): RecyclerView.Adapter<ShearAdapter.ShearViewHolder>() {
 
      val itemsList = ArrayList<Items>()
 
@@ -21,19 +20,10 @@ class ShearAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
         notifyDataSetChanged()
     }
 
-    fun removeCartItem(items: Items, position: Int){
-        itemsList.remove(items)
-        notifyItemRemoved(position)
-    }
-    fun removeCart(){
-        itemsList.clear()
-        notifyDataSetChanged()
-    }
-
     inner class ShearViewHolder(view: View) : RecyclerView.ViewHolder(view){
         init {
-            view.setOnLongClickListener{
-                listener.onItemsLongClick(itemsList[adapterPosition],adapterPosition)
+            view.setOnClickListener{
+                listener.onItemsClick(itemsList[adapterPosition],adapterPosition)
                 true
             }
         }
@@ -41,17 +31,17 @@ class ShearAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShearViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.shear_row, parent, false)
+        val view = inflater.inflate(R.layout.items_row, parent, false)
         return ShearViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ShearViewHolder, position: Int) {
-        val name = holder.itemView.findViewById<TextView>(R.id.nameShearRowTV)
-        val categories = holder.itemView.findViewById<TextView>(R.id.categoriesShearRowTV)
-        val image = holder.itemView.findViewById<ImageView>(R.id.shearRowImage)
+        val name = holder.itemView.findViewById<TextView>(R.id.nameItemsRowTV)
+        val price = holder.itemView.findViewById<TextView>(R.id.priceItemsRowTV)
+        val image = holder.itemView.findViewById<ImageView>(R.id.itemsRowImage)
 
         name.text = itemsList[holder.adapterPosition].name
-        categories.text = itemsList[holder.adapterPosition].categories
+        price.text = "${itemsList[holder.adapterPosition].price.toString()} zł"
         Glide.with(holder.itemView)
                 .load(itemsList[holder.adapterPosition].image)
                 .into(image)
@@ -61,6 +51,6 @@ class ShearAdapter(private val listener: OnItemsLongClick): RecyclerView.Adapter
         return itemsList.size
     }
 }
-interface OnItemsLongClick{
-    fun onItemsLongClick(items: Items, position: Int)
+interface OnItemsClick{
+    fun onItemsClick(items: Items, position: Int)
 }
