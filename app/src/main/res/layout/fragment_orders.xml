@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".orders.OrdersFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#59E0F7FA">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Witam w zamowieniach" />
+        android:text="@string/welcomeOrder"
+        android:textStyle="italic"
+        android:textSize="18sp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewOrder"
         android:layout_width="match_parent"

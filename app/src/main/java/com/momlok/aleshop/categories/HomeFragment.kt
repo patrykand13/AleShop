@@ -44,6 +44,10 @@ class HomeFragment : BaseFragment(), OnClickListener {
         homeVM.categories.observe(viewLifecycleOwner, {categories ->
             adapter.setHome(categories)
         })
+        binding.logoutBT.setOnClickListener {
+            fbAuth.signOut()
+            requireActivity().finish()
+        }
     }
 
     override fun onClickListener(categories: Categories, position: Int) {

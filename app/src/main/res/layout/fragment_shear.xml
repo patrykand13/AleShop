@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".categories.ShearFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#59E0F7FA">
     <ImageView
         android:id="@+id/shearRowImage"
         android:layout_width="match_parent"

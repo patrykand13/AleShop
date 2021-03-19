@@ -40,6 +40,8 @@ class SignUpFragment : BaseFragment() {
 
     private fun signUpClick(){
         binding.registerRegiBT.setOnClickListener {
+            var name = binding.nameRegiTE.text.toString()
+            var surname = binding.surnameRegiTE.text.toString()
             var email = binding.emailRegiTE.text.toString()
             var password = binding.passwordRegiTE.text.toString()
             var repeatPassword = binding.repeatPassRegiTE.text.toString()
@@ -50,7 +52,8 @@ class SignUpFragment : BaseFragment() {
                             val user = User(
                                     auth.user!!.uid,
                                     auth.user!!.email,
-                                    "")
+                                    name,
+                                    surname)
                             signUpVM.createNewUs(user)
                             goMain()
                     }

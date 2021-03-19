@@ -2,4 +2,12 @@
     <string name="app_name">AleShop</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="orderCart">Zamów teraz</string>
+    <string name="logOut">Wyloguj się</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="addToCart">Dodaj do Koszyka</string>
+    <string name="welcomeOrder">Witamy w Twoich zamówieniach</string>
+    <string name="logIn">Zaloguj się</string>
+    <string name="register">Zarejestruj się</string>
 </resources>

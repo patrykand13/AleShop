@@ -45,13 +45,13 @@
             android:id="@+id/itemLessBT"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="-" />
+            android:text="@string/minus" />
 
         <Button
             android:id="@+id/itemMoreBT"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="+" />
+            android:text="@string/plus" />
 
         <TextView
             android:id="@+id/itemAmountTV"
@@ -65,12 +65,14 @@
         android:id="@+id/itemAddToCartBT"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Dodaj do Koszyka" />
+        android:text="@string/addToCart" />
 
     <TextView
         android:id="@+id/itemDescriptionTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description " />
+        android:hint="Description "
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"/>
 
 </LinearLayout>

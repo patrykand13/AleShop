@@ -46,6 +46,7 @@ class ItemFragment : Fragment() {
         }
         binding.itemNameTV.text = args.name
         binding.itemPriceTV.text = "Sztuka: ${args.price.toString()} zł"
+        binding.itemDescriptionTV.text = args.description
         price = args.price.toDouble()
         setTV()
     }

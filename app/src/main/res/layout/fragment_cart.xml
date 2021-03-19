@@ -4,19 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".cart.CartFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#59E0F7FA">
 
     <TextView
         android:id="@+id/toPayCartTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Do zapłaty: " />
+        android:hint="Do zapłaty: "
+        android:textStyle="bold"
+        android:textSize="25sp"/>
 
     <Button
         android:id="@+id/createOrderCartBT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/orderCart" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCart"

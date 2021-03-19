@@ -56,5 +56,8 @@
         <argument
             android:name="id"
             app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
     </fragment>
 </navigation>

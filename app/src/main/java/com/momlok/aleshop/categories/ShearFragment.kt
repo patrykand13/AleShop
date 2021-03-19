@@ -58,7 +58,7 @@ class ShearFragment : BaseFragment(), OnItemsClick {
     }
 
     override fun onItemsClick(items: Items, position: Int) {
-        var action = ShearFragmentDirections.actionShearFragmentToItemFragment(items.image.toString(),items.name.toString(),items.price.toFloat(),items.id.toString())
+        var action = ShearFragmentDirections.actionShearFragmentToItemFragment(items.image.toString(),items.name.toString(),items.price.toFloat(),items.id.toString(),items.description.toString())
         Navigation.findNavController(binding.root).navigate(action)
     }
 
