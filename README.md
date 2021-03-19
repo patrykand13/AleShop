@@ -15,11 +15,17 @@ Log in to your account and then browse all available products. If you are intere
 
 ## Technologies
 Kotlin
+
 Firebase
+
 MVVM
+
 Gson
+
 NoSQL
+
 Glide
+
 (work on fragments)
 
 ## Features
